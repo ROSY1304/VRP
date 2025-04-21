@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Rutas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0fdf4;
+      margin: 0;
+      padding: 30px;
+      color: #064e3b;
+    }
+
+    h1 {
+      text-align: center;
+      background-color: #10b981;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+
+    h2 {
+      color: #065f46;
+      border-bottom: 2px solid #10b981;
+      padding-bottom: 5px;
+      margin-top: 30px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 6px;
+      margin-right: 10px;
+      border: 1px solid #94a3b8;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #059669;
+    }
+
+    input[type="submit"] {
+      margin-top: 20px;
+      background-color: #16a34a;
+      padding: 10px 20px;
+      font-weight: bold;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #d1fae5;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    .ciudad-entry {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ciudad-entry input {
+      flex: 1 1 150px;
+    }
+  </style>
+  <script>
+    function agregarCiudad() {
+      const container = document.getElementById("ciudades");
+      const nuevaCiudad = document.createElement("div");
+      nuevaCiudad.classList.add("ciudad-entry");
+      nuevaCiudad.innerHTML = `
+        Ciudad: <input type="text" name="ciudad[]" required>
+        Latitud: <input type="text" name="lat[]" required>
+        Longitud: <input type="text" name="lon[]" required>
+        Pedidos: <input type="number" name="pedidos[]" required>
+        <button type="button" onclick="this.parentElement.remove()">❌</button>
+      `;
+      container.appendChild(nuevaCiudad);
+    }
+  </script>
+</head>
+<body>
+  <h1>Calculadora de Rutas Óptimas</h1>
+
+  <form method="post">
+    <h2>Ciudades</h2>
+    <div id="ciudades">
+      {% for i in range(3) %}
+        <div class="ciudad-entry">
+          Ciudad: <input type="text" name="ciudad[]" required>
+          Latitud: <input type="text" name="lat[]" required>
+          Longitud: <input type="text" name="lon[]" required>
+          Pedidos: <input type="number" name="pedidos[]" required>
+          <button type="button" onclick="this.parentElement.remove()">❌</button>
+        </div>
+      {% endfor %}
+    </div>
+    <button type="button" onclick="agregarCiudad()">➕ Agregar Ciudad</button>
+
+    <h2>Datos del almacén</h2>
+    <p>
+      Latitud: <input type="text" name="almacen_lat" required>
+      Longitud: <input type="text" name="almacen_lon" required>
+    </p>
+
+    <h2>Restricciones</h2>
+    <p>
+      Máxima carga (kg): <input type="text" name="max_carga" required><br>
+      Máximo combustible (L): <input type="text" name="max_combustible" required><br>
+      Consumo por km (L/km): <input type="text" name="consumo_por_km" required><br>
+      Máxima distancia (km): <input type="text" name="max_distancia" required><br>
+      Máximo paquetes: <input type="text" name="max_paquetes" required>
+    </p>
+
+    <input type="submit" value="Calcular rutas">
+  </form>
+
+  {% if rutas %}
+    <h2>Rutas calculadas</h2>
+    <ul>
+      {% for ruta in rutas %}
+        <li>{{ ruta }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
