@@ -17,7 +17,7 @@ def peso_ruta(ruta, pedidos):
     return sum(pedidos[c] for c in ruta)
 
 def paquetes_ruta(ruta, pedidos):
-    return peso_ruta(ruta, pedidos)
+    return sum(pedidos[c] for c in ruta)  # Cambié esto para contar los paquetes
 
 def distancia_ruta(ruta, coord, almacen):
     total = distancia(almacen, coord[ruta[0]]) + distancia(coord[ruta[-1]], almacen)
@@ -85,7 +85,20 @@ def vrp_voraz(coord, pedidos, almacen, max_carga, max_combustible, consumo_por_k
                 rutas.remove(rc2)
                 rutas.append(nueva)
 
-    return rutas
+    # Añadir detalles de cada ruta con el total de paquetes repartidos
+    rutas_detalles = []
+    for ruta in rutas:
+        distancia_total = distancia_ruta(ruta, coord, almacen)
+        combustible_total = combustible_ruta(ruta, coord, almacen, consumo_por_km)
+        paquetes_totales = paquetes_ruta(ruta, pedidos)  # Calcular total de paquetes
+        rutas_detalles.append({
+            "ruta": " -> ".join(ruta),  # Crear un string legible de las ciudades
+            "distancia_total": distancia_total,
+            "combustible_total": combustible_total,
+            "paquetes_totales": paquetes_totales  # Añadir el total de paquetes
+        })
+
+    return rutas_detalles
 
 @app.route("/", methods=["GET", "POST"])
 def index():

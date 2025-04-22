@@ -110,6 +110,7 @@
 </head>
 <body>
   <h1>Calculadora de Rutas Óptimas</h1>
+  
 
   <form method="post">
     <h2>Ciudades</h2>
@@ -143,14 +144,20 @@
 
     <input type="submit" value="Calcular rutas">
   </form>
-
   {% if rutas %}
-    <h2>Rutas calculadas</h2>
-    <ul>
-      {% for ruta in rutas %}
-        <li>{{ ruta }}</li>
-      {% endfor %}
-    </ul>
+  <h2>Rutas calculadas</h2>
+  <ul>
+    {% for ruta in rutas %}
+      <li><strong>Ruta:</strong> {{ ruta['ruta'] }}<br>
+          <strong>Distancia Total:</strong> {{ ruta['distancia_total'] * 100 }} km<br>
+          <strong>Consumo de Combustible:</strong> {{ ruta['combustible_total'] * 100 }} L<br>
+          <strong>Total de Paquetes Repartidos:</strong> {{ ruta['paquetes_totales'] }}</li>
+    {% endfor %}
+  </ul>
   {% endif %}
+  
+    
+
+
 </body>
 </html>

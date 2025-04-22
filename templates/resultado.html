@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head><title>Resultado</title></head>
+<body>
+    <h2>Rutas Calculadas</h2>
+    <ul>
+        {% for ruta in rutas %}
+            <li>{{ ruta }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Restricciones Usadas</h3>
+    <ul>
+        <li>Carga Máxima: {{ max_carga }}</li>
+        <li>Gasolina Máxima: {{ max_gasolina }}</li>
+        <li>Máximo de Paquetes por Vehículo: {{ max_paquetes }}</li>
+    </ul>
+    <a href="/">Volver</a>
+</body>
+</html>
