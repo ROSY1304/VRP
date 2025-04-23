@@ -149,8 +149,8 @@
   <ul>
     {% for ruta in rutas %}
       <li><strong>Ruta:</strong> {{ ruta['ruta'] }}<br>
-          <strong>Distancia Total:</strong> {{ ruta['distancia_total'] * 100 }} km<br>
-          <strong>Consumo de Combustible:</strong> {{ ruta['combustible_total'] * 100 }} L<br>
+          <strong>Distancia Total:</strong> {{ ruta['distancia_total'] * 10 }} km<br>
+          <strong>Consumo de Combustible:</strong> {{ ruta['combustible_total'] * 10 }} L<br>
           <strong>Total de Paquetes Repartidos:</strong> {{ ruta['paquetes_totales'] }}</li>
     {% endfor %}
   </ul>
